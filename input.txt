@@ -1,0 +1,6 @@
+LDI r4 4
+RSH r4 r5
+LDI r6 3
+ADD r5 r6 r7
+INC r7
+HLT
