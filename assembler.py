@@ -25,7 +25,7 @@ with open("input.txt", 'r', encoding='utf-8') as file:
                 flag = flags.index(line[1])
             address = int(line[2])
             output.append(f"{opcode_number:04b}0{flag:02b}{address:09b}")
-        elif opcode = "CMP":
+        elif opcode == "CMP":
             register1 = int(line[1][1:])
             register2 = int(line[2][1:])
             output.append(f"{opcodes.index('SUB'):04b}{register1:04b}{register2:04b}0000")
