@@ -1,5 +1,6 @@
 opcodes = ["NOP", "HLT", "ADD", "SUB", "OR",  "NOR", "AND", "XOR", "RSH", "LDI", "ADI", "JMP", "BRH"]
 flags = ["Z", "C", "V", "N"]
+pseudo_flags = ["=", ">=", "V", "N"]
 
 output = []
 
@@ -18,7 +19,10 @@ with open("input.txt", 'r', encoding='utf-8') as file:
             address = int(line[1])
             output.append(f"{opcode_number:04b}000{address:09b}")
         elif opcode == "BRH":
-            flag = flags.index(line[1])
+            if line[1] in pseudo_flags:
+                flag = pseudo_flags.index(line[1])
+            else:
+                flag = flags.index(line[1])
             address = int(line[2])
             output.append(f"{opcode_number:04b}0{flag:02b}{address:09b}")
         elif opcode = "CMP":
