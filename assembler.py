@@ -6,6 +6,9 @@ output = []
 
 with open("input.txt", 'r', encoding='utf-8') as file:
     for line in file:
+        line = line.split("//")[0].rstrip()
+        if line == "":
+            continue
         line = line.split()
         opcode = line[0]
         if opcode in opcodes:
