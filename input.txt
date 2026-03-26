@@ -1,6 +1,12 @@
-LDI r1 0
-LDI r2 10
-INC r1
-CMP r2 r1
-BRH >= 2
+LDI r1 6
+RSH r1 r1
+DEC r1
+LDI r2 1
+LDI r3 1
+LDI r4 0
+ADD r2 r3 r2
+ADD r3 r2 r3
+INC r4
+CMP r1 r4
+BRH >= 6
 HLT
