@@ -1,6 +1,5 @@
 opcodes = ["NOP", "HLT", "ADD", "SUB", "OR",  "NOR", "AND", "XOR", "RSH", "LDI", "ADI", "JMP", "BRH"]
 flags = ["Z", "C", "V", "N"]
-pseudo_flags = ["=", ">="]
 labels = {}
 output = []
 
@@ -16,12 +15,13 @@ def process_instruction(line):
         address = int(line[1])
         output.append(f"{opcode_number:04b}000{address:09b}")
     elif opcode == "BRH":
-        if line[1] in pseudo_flags:
-            flag = pseudo_flags.index(line[1])
-        else:
-            flag = flags.index(line[1])
+        negate = "0"
+        if line[1].startswith("!"):
+            negate = "1"
+            line[1] = line[1][1:]
+        flag = flags.index(line[1])
         address = int(line[2])
-        output.append(f"{opcode_number:04b}0{flag:02b}{address:09b}")
+        output.append(f"{opcode_number:04b}{negate}{flag:02b}{address:09b}")
     elif opcode == "CMP":
         register1 = int(line[1][1:])
         register2 = int(line[2][1:])

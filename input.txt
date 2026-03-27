@@ -8,15 +8,14 @@ LDI r3 1
 
 LDI r4 1 // 4, count loading the first 2 fib numbers as a run
 
-// exit loop if it ran r1 times
-.loop CMP r4 r1
-BRH = .exit
-
 // calculate next 2 fib numbers
-ADD r2 r3 r2
+.loop ADD r2 r3 r2
 ADD r3 r2 r3
 
-INC r4 // increment count
-JMP .loop // loop back
+INC r4 // increment loop count
 
-.exit HLT
+// loop if haven't looped enough times
+CMP r4 r1
+BRH !C .loop
+
+HLT
