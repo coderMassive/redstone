@@ -1,5 +1,11 @@
-// set r1 to how many times the loop should run
-LDI r1 8 // find 8th fib number
+LDI r1 11 // find 11th fib number
+// LDI r1 12 // find 12th fib number
+
+// check if it is odd or even
+RSH r1 r2
+ADD r2 r2 r2
+SUB r1 r2 r5 // r5 is now r1 % 2
+
 RSH r1 r1 // divide by 2, as every loop is 2 numbers
 
 // load first two fib numbers
@@ -18,4 +24,18 @@ INC r4 // increment loop count
 CMP r4 r1
 BRH !C .loop
 
-HLT
+// check parity of input
+CMP r5 r0
+BRH Z .even
+
+// odd
+ADD r2 r0 r5
+JMP .end // skip even
+
+// even
+.even ADD r3 r0 r5
+
+// output is in r5, should be 89
+// // output is in r5, should be 144
+
+.end HLT

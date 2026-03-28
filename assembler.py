@@ -11,7 +11,7 @@ def process_instruction(line):
         output.append("0000000000000000")
     elif opcode == "HLT" or opcode == "RET":
         output.append(f"{opcode_number:04b}000000000000")
-    elif opcode == "JMP", opcode == "CAL":
+    elif opcode == "JMP" or opcode == "CAL":
         address = int(line[1])
         output.append(f"{opcode_number:04b}000{address:09b}")
     elif opcode == "BRH":
