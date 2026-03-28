@@ -1,4 +1,4 @@
-opcodes = ["NOP", "HLT", "ADD", "SUB", "OR",  "NOR", "AND", "XOR", "RSH", "LDI", "ADI", "JMP", "BRH"]
+opcodes = ["NOP", "HLT", "ADD", "SUB", "OR",  "NOR", "AND", "XOR", "RSH", "LDI", "ADI", "JMP", "BRH", "CAL", "RET"]
 flags = ["Z", "C", "V", "N"]
 labels = {}
 output = []
@@ -9,9 +9,9 @@ def process_instruction(line):
         opcode_number = opcodes.index(opcode)
     if opcode == "NOP":
         output.append("0000000000000000")
-    elif opcode == "HLT":
+    elif opcode == "HLT" or opcode == "RET":
         output.append(f"{opcode_number:04b}000000000000")
-    elif opcode == "JMP":
+    elif opcode == "JMP", opcode == "CAL":
         address = int(line[1])
         output.append(f"{opcode_number:04b}000{address:09b}")
     elif opcode == "BRH":
