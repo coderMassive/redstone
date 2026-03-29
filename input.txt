@@ -1,11 +1,11 @@
 LDI r1 11 // find 11th fib number
-// LDI r1 12 // find 12th fib number
 
 // check if it is odd or even
 RSH r1 r2
 ADD r2 r2 r2
 SUB r1 r2 r5 // r5 is now r1 % 2
 
+INC r1 // if r1 is even, it will become odd and floor the division making this not matter; if r1 is odd, it will loop an extra time instead of flooring it
 RSH r1 r1 // divide by 2, as every loop is 2 numbers
 
 // load first two fib numbers
@@ -36,6 +36,5 @@ JMP .end // skip even
 .even ADD r3 r0 r5
 
 // output is in r5, should be 89
-// // output is in r5, should be 144
 
 .end HLT
