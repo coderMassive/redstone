@@ -1,6 +1,7 @@
 labels = {}
 flags = {"Z": 0, "C": 0, "V": 0, "N": 0}
 registers = [0]*8
+stack = []
 
 def process_instruction(line, pc):
     match line[0]:
@@ -89,9 +90,10 @@ def process_instruction(line, pc):
                 if flags[line[1]] == 1:
                     return int(line[2])
         case "CAL":
-            pass
+            stack.append(int(line[1])+1)
+            return int(line[1])
         case "RET":
-            pass
+            return stack.pop()
     try:
         flags["Z"] = int(result == 0)
         flags["N"] = int(result & 0x80)

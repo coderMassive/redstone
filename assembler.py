@@ -1,3 +1,5 @@
+import sys
+
 opcodes = ["NOP", "HLT", "ADD", "SUB", "OR",  "NOR", "AND", "XOR", "RSH", "LDI", "ADI", "JMP", "BRH", "CAL", "RET"]
 flags = ["Z", "C", "V", "N"]
 labels = {}
@@ -56,7 +58,7 @@ def replace_labels(line):
     return line
 
 # set labels
-with open("input.txt", 'r', encoding='utf-8') as file:
+with open(sys.argv[1], 'r', encoding='utf-8') as file:
     i = 0
     for line in file:
         if line.strip() == "" or line.strip().startswith("//"): # ignore empty and comment lines
@@ -66,7 +68,7 @@ with open("input.txt", 'r', encoding='utf-8') as file:
         i += 1
 
 # process instructions
-with open("input.txt", 'r', encoding='utf-8') as file:
+with open(sys.argv[1], 'r', encoding='utf-8') as file:
     for line in file:
         line = line.split("//")[0].strip() # remove comments and spaces
         if line == "":
@@ -75,6 +77,6 @@ with open("input.txt", 'r', encoding='utf-8') as file:
         line = replace_labels(line)
         process_instruction(line)
         
-with open("output.txt", 'w', encoding='utf-8') as file:
+with open(sys.argv[2], 'w', encoding='utf-8') as file:
     for line in output:
         file.write(f"{line}\n")

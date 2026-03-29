@@ -1,6 +1,6 @@
 import mcschematic
 
-with open("output.txt", "r") as f:
+with open(sys.argv[1], "r") as f:
     lines = [line.strip() for line in f if line.strip()]
 
 schem = mcschematic.MCSchematic()
@@ -20,4 +20,4 @@ for line in lines:
 
     z -= 6
 
-schem.save(".", "program", mcschematic.Version.JE_1_18_2)
+schem.save(".", sys.argv[2], mcschematic.Version.JE_1_18_2)
