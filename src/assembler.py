@@ -58,7 +58,7 @@ def replace_labels(line):
     return line
 
 # set labels
-with open(sys.argv[1], 'r', encoding='utf-8') as file:
+with open("asm/" + sys.argv[1] + ".asm", 'r', encoding='utf-8') as file:
     i = 0
     for line in file:
         if line.strip() == "" or line.strip().startswith("//"): # ignore empty and comment lines
@@ -68,7 +68,7 @@ with open(sys.argv[1], 'r', encoding='utf-8') as file:
         i += 1
 
 # process instructions
-with open(sys.argv[1], 'r', encoding='utf-8') as file:
+with open("asm/" + sys.argv[1] + ".asm", 'r', encoding='utf-8') as file:
     for line in file:
         line = line.split("//")[0].strip() # remove comments and spaces
         if line == "":
@@ -77,6 +77,6 @@ with open(sys.argv[1], 'r', encoding='utf-8') as file:
         line = replace_labels(line)
         process_instruction(line)
         
-with open(sys.argv[2], 'w', encoding='utf-8') as file:
+with open("bin/" + sys.argv[1] + ".bin", 'w', encoding='utf-8') as file:
     for line in output:
         file.write(f"{line}\n")

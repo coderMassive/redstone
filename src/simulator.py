@@ -115,7 +115,7 @@ def replace_labels(line):
     return line
 
 # set labels
-with open(sys.argv[1], 'r', encoding='utf-8') as file:
+with open("asm/" + sys.argv[1] + ".asm", 'r', encoding='utf-8') as file:
     i = 0
     for line in file:
         if line.strip() == "" or line.strip().startswith("//"): # ignore empty and comment lines
@@ -125,7 +125,7 @@ with open(sys.argv[1], 'r', encoding='utf-8') as file:
         i += 1
 
 # process instructions
-with open(sys.argv[1], 'r', encoding='utf-8') as file:
+with open("asm/" + sys.argv[1] + ".asm", 'r', encoding='utf-8') as file:
     lines = file.readlines()
 
     # remove empty lines
