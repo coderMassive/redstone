@@ -1,3 +1,5 @@
+import sys
+
 labels = {}
 flags = {"Z": 0, "C": 0, "V": 0, "N": 0}
 registers = [0]*8
@@ -8,6 +10,7 @@ def process_instruction(line, pc):
         case "NOP":
             pass
         case "HLT":
+            print(registers)
             exit()
         case "ADD":
             a, b = registers[int(line[1][1:])], registers[int(line[2][1:])]
@@ -90,7 +93,7 @@ def process_instruction(line, pc):
                 if flags[line[1]] == 1:
                     return int(line[2])
         case "CAL":
-            stack.append(int(line[1])+1)
+            stack.append(pc + 1)
             return int(line[1])
         case "RET":
             return stack.pop()
@@ -112,7 +115,7 @@ def replace_labels(line):
     return line
 
 # set labels
-with open("input.txt", 'r', encoding='utf-8') as file:
+with open(sys.argv[1], 'r', encoding='utf-8') as file:
     i = 0
     for line in file:
         if line.strip() == "" or line.strip().startswith("//"): # ignore empty and comment lines
@@ -122,22 +125,20 @@ with open("input.txt", 'r', encoding='utf-8') as file:
         i += 1
 
 # process instructions
-with open("input.txt", 'r', encoding='utf-8') as file:
+with open(sys.argv[1], 'r', encoding='utf-8') as file:
     lines = file.readlines()
 
-    # remove comments and empty lines
+    # remove empty lines
     for i in range(len(lines))[::-1]:
         line = lines[i]
         line = line.split("//")[0].strip()
         if line == "":
             lines.pop(i)
-        else:
-            lines[i] = line
 
     pc = 0
     while True:
         line = lines[pc]
+        line = line.split("//")[0].strip() # remove comment at the end of line
         line = line.split()
         line = replace_labels(line)
         pc = process_instruction(line, pc)
-        print(registers)
