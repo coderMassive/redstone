@@ -1,6 +1,6 @@
 import sys
 
-opcodes = ["NOP", "HLT", "ADD", "SUB", "OR",  "NOR", "AND", "XOR", "RSH", "LDI", "ADI", "JMP", "BRH", "CAL", "RET"]
+opcodes = ["NOP", "HLT", "ADD", "SUB", "OR",  "NOR", "AND", "XOR", "RSH", "LDI", "ADI", "JMP", "BRH", "CAL", "RET", "MEM"]
 flags = ["Z", "C", "V", "N"]
 labels = {}
 output = []
@@ -28,6 +28,11 @@ def process_instruction(line):
         register1 = int(line[1][1:])
         register2 = int(line[2][1:])
         output.append(f"{opcodes.index('SUB'):04b}{register1:04b}{register2:04b}0000")
+    elif opcode == "MEM":
+        register1 = int(line[1][1:])
+        register2 = int(line[2][1:])
+        setting = int(line[3])
+        output.append(f"{opcode_number:04b}{register1:04b}{register2:04b}{setting:04b}")
     elif opcode == "LDI" or opcode == "ADI":
         register = int(line[1][1:])
         value = int(line[2])

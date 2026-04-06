@@ -3,6 +3,7 @@ import sys
 labels = {}
 flags = {"Z": 0, "C": 0, "V": 0, "N": 0}
 registers = [0]*8
+memory = [0]*256
 stack = []
 
 def process_instruction(line, pc):
@@ -97,6 +98,13 @@ def process_instruction(line, pc):
             return int(line[1])
         case "RET":
             return stack.pop()
+        case "MEM":
+            address = registers[int(line[1][1:])]
+            setting = line[3]
+            if setting == "0": # write to memory
+                memory[address] = registers[int(line[2][1:])]
+            else: # read from memory
+                registers[int(line[2][1:])] = memory[address]
     try:
         flags["Z"] = int(result == 0)
         flags["N"] = int(result & 0x80)
