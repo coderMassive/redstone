@@ -4,7 +4,7 @@ CAL .fib
 
 // save to ram
 LDI r2 0 // address
-MEM r2 r1 0
+MEM r1 r2 0
 
 // find 10th fib number
 LDI r1 10
@@ -12,7 +12,7 @@ CAL .fib
 
 // save to ram
 LDI r2 1 // address
-MEM r2 r1 0
+MEM r1 r2 0
 
 // reset all registers
 LDI r1 0
@@ -25,9 +25,9 @@ LDI r7 0
 
 // load values from ram
 LDI r3 0
-MEM r3 r1 1
+MEM r1 r3 1
 LDI r3 1
-MEM r3 r2 1
+MEM r2 r3 1
 LDI r3 0 // reset r3
 
 HLT

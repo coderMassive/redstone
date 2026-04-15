@@ -99,12 +99,12 @@ def process_instruction(line, pc):
         case "RET":
             return stack.pop()
         case "MEM":
-            address = registers[int(line[1][1:])]
+            address = registers[int(line[2][1:])]
             setting = line[3]
             if setting == "0": # write to memory
-                memory[address] = registers[int(line[2][1:])]
+                memory[address] = registers[int(line[1][1:])]
             else: # read from memory
-                registers[int(line[2][1:])] = memory[address]
+                registers[int(line[1][1:])] = memory[address]
     try:
         flags["Z"] = int(result == 0)
         flags["N"] = int(result & 0x80)
