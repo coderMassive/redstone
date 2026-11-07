@@ -1,17 +1,18 @@
 import sys
+from time import sleep
 
 labels = {}
 flags = {"Z": 0, "C": 0, "V": 0, "N": 0}
 registers = [0]*8
 memory = [0]*256
 stack = []
+clock_delay = 0.01
 
 def process_instruction(line, pc):
     match line[0]:
         case "NOP":
             pass
         case "HLT":
-            print(registers)
             exit()
         case "ADD":
             a, b = registers[int(line[1][1:])], registers[int(line[2][1:])]
@@ -113,6 +114,16 @@ def process_instruction(line, pc):
     registers[0] = 0
     return pc + 1
 
+def display(num1, num2):
+    output = []
+    for i in range(num2, num1, -1):
+        output.append([int(x) for x in format(memory[i], '08b')])
+    for i in range(8):
+        for j in range(8):
+            print(output[j][i], end=" ")
+        print()
+    print("="*16)
+
 def replace_labels(line):
     for i, part in enumerate(line):
         if part.startswith("."):
@@ -150,3 +161,5 @@ with open("asm/" + sys.argv[1] + ".asm", 'r', encoding='utf-8') as file:
         line = line.split()
         line = replace_labels(line)
         pc = process_instruction(line, pc)
+        display(23, 31)
+        sleep(clock_delay)
