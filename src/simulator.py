@@ -13,10 +13,9 @@ flags = {"Z": 0, "C": 0, "V": 0, "N": 0}
 registers = [0]*8
 memory = [0]*256
 stack = []
-clock_delay = 0.001
+clock_delay = 0.002
 
 def process_instruction(line, pc):
-    print(line)
     match line[0]:
         case "NOP":
             pass
@@ -117,11 +116,10 @@ def process_instruction(line, pc):
                 registers[int(line[1][1:])] = memory[address]
     try:
         flags["Z"] = int(result == 0)
-        flags["N"] = int(result & 0x80)
+        flags["N"] = int((result & 0x80) != 0)
     except:
         pass
     registers[0] = 0
-    print(registers)
     return pc + 1
 
 def display(num1, num2):
