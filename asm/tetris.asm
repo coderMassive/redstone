@@ -9,7 +9,7 @@
 // init board
 
 // clear
-LDI r1 7
+LDI r1 15
 .board_clear_loop NOP
 MEM r0 r1 0
 DEC r1
